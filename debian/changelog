@@ -1,3 +1,10 @@
+italc2 (2.0.0-0aurex1) precise; urgency=low
+
+  * New upstream release.
+  * Modify debian/rules for multiple archs.
+
+ -- Luis Antonio Garcia Gisbert <luisgg@gmail.com>  Wed, 05 Sep 2012 00:31:01 +0200
+
 italc2 (1.9.6-0ubuntu1~warp10~test1) lucid; urgency=low
 
   * Initial release.

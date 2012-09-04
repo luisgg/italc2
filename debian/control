@@ -2,6 +2,7 @@ Source: italc2
 Section: x11
 Priority: optional
 Maintainer: Andrea Colangelo <warp10@ubuntu.com>
+Uploaders: Luis Antonio Garcia Gisbert <luisgg@gmail.com>
 Build-Depends: debhelper (>= 7.0.50~), cmake, libqt4-dev, qt4-dev-tools, libxtst-dev, libjpeg62-dev, zlib1g-dev, libssl-dev, libpam0g-dev, libxdamage-dev, libxinerama-dev, libxrandr-dev, default-jdk
 Standards-Version: 3.9.1
 Homepage: http://italc.sourceforge.net/home.php
