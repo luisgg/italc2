@@ -1,0 +1,64 @@
+#!/bin/sh
+if [ ! `getent group admin` ]; then
+	addgroup --system admin
+fi
+
+if [ -d /etc/italc ]; then
+    known_keys="38437fd93f2728ed752b55604abe3f26 701806e8744e15540b2391d66ab560e6 ce39df1800470195c0d35a13acc7f2f4 122c1a9f324c997db4c69bb5a0b2eac1 783d858340ed89c132db8c2973b4b9fb 2a6cdd46ec7d52eb2df334da08122797 cab58fba8b1e002f894317b5ec53052d f04bc4de36ca6c3aeaa50f2e7a8c3e72 ae3a07a17da0dbd795c24898483da12a b11f5dbbbc6392ce96eb970e6ab173c9 ed6f414a92f558a5a5f475fcf04b6543 4415ebbe044d9004f5e4edb36ab0e8bf 9746f2ac0e55c761912bd24a2c0df077 9224a0b6a09cd29545a91798b3e402a4 5adfa4044d68a8fa1591887c11f8788c 43c88a01ea36f056be69c750097fb82a 544d88f8ce8c8de3c28d411a5ee45091 adbf57dd4419f3a28de52572099e2c0b c0244cda824f75b2b186cf8830c44c2b bd1576d3824dc330c0e60b6369fdb173 1953dffb20ef8f0b258e32a7c957e8fe 5021b1e3c8ce147a2d962ec368b681f6 8f372d3a35763db6e017bcfc86b28b9f bdd706777034072db71329f47f041c94 909b6771f03df333a26c70fe48814702 1fa2f1f8709dff5e681bbba693a184be 12cb0152c344df5592eced24a5175b90 554991d4382fa98d6da6d2bb125e8f68 933c823eeaeba399211207784e410ae1 d81ee1636da323c652e67fc9f5d17dea 443e7a853ac6e963c94e7b7ed36092cb 0a0745860a4d055e8b4524ff6c3b7356 143a0371bd3ea11d71c50b0cbe219dce d53811801490e7dd515ae427e9d244c5 29d2e819b9fbcbe493a7276b12e08ee0 89e52ef5a04595261fea94b8f57abcc4"
+    found_key=0
+    # Security, remove known keys
+    for key in /etc/italc/keys/private/*/key /etc/italc/keys/public/*/key; do
+        sum=$(md5sum $key | cut -d ' ' -f1)
+        for known_key in $known_keys; do
+            if [ "$sum" = "$known_key" ]; then
+                found_key=1
+                rm $key
+                break
+            fi
+        done
+    done
+    if [ "$found_key" = "1" ]; then
+        echo "WARNING"
+        echo "One or multiple common keys have been found on your system."
+        echo "As a security measure, they have now been removed and re-generated."
+        echo "More information is available here: https://wiki.ubuntu.com/iTalc/Keys"
+    fi
+fi
+
+if [ ! -f /etc/italc/keys/private/teacher/key ] && [ ! -f /etc/italc/keys/public/teacher/key ]; then
+	echo "Creating teacher keypair"
+	imc -role teacher -createkeypair > /dev/zero
+	chmod g+r /etc/italc/keys/private/teacher/key
+	chgrp admin /etc/italc/keys/private/teacher/key
+fi
+if [ ! -f /etc/italc/keys/private/admin/key ] && [ ! -f /etc/italc/keys/public/admin/key ]; then
+	echo "Creating admin keypair"
+	imc -role admin -createkeypair > /dev/zero
+	chmod g+r /etc/italc/keys/private/admin/key
+	chgrp admin /etc/italc/keys/private/admin/key
+fi
+if [ ! -f /etc/italc/keys/private/supporter/key ] && [ ! -f /etc/italc/keys/public/supporter/key ]; then
+	echo "Creating supporter keypair"
+	imc -role supporter -createkeypair > /dev/zero
+	chmod g+r /etc/italc/keys/private/supporter/key
+	chgrp admin /etc/italc/keys/private/supporter/key
+fi
+
+if [ -f /etc/ltsp_chroot ] && [ -d /usr/share/ldm/rc.d/ ]; then
+	[ -f /usr/share/ldm/rc.d/S06-italc ] && rm /usr/share/ldm/rc.d/S06-italc
+	echo "Installing ldm rc script"
+	(
+	cat << 'EOF'
+xprop -f ica_ltsp 8b -root -set ica_ltsp False
+if boolean_is_true "$START_ITALC"
+then
+    USER=`hostname` ica-launcher &
+    (sleep 2s && xprop -f ica_ltsp 8b -root -set ica_ltsp True)&
+else
+    xprop -f ica_ltsp 8b -root -set ica_ltsp False
+fi
+EOF
+	) > /usr/share/ltsp/xinitrc.d/I15-italc
+fi
+
+#DEBHELPER#

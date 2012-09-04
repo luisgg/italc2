@@ -1,0 +1,5 @@
+usr/bin/ica					/usr/bin/
+usr/bin/imc					/usr/bin/
+usr/bin/italc_auth_helper			/usr/bin/
+usr/share/italc/JavaViewer/index.vnc		/usr/share/italc/JavaViewer/
+usr/share/italc/JavaViewer/VncViewer.jar	/usr/share/italc/JavaViewer

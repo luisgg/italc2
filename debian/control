@@ -1,0 +1,70 @@
+Source: italc2
+Section: x11
+Priority: optional
+Maintainer: Andrea Colangelo <warp10@ubuntu.com>
+Build-Depends: debhelper (>= 7.0.50~), cmake, libqt4-dev, qt4-dev-tools, libxtst-dev, libjpeg62-dev, zlib1g-dev, libssl-dev, libpam0g-dev, libxdamage-dev, libxinerama-dev, libxrandr-dev, default-jdk
+Standards-Version: 3.9.1
+Homepage: http://italc.sourceforge.net/home.php
+
+Package: italc2-master
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python, italc2-client, libitalc2
+Recommends: avahi-utils
+Conflicts: italc-master
+Description: Intelligent Teaching and Learning with Computers (master part)
+ iTALC makes it possible, to access and influence the pupils 
+ activities just from the computer of the teacher. With the 
+ help of iTALC, for example the teacher is able to see the 
+ content of the pupils screens on his screen. If a pupil needs 
+ help, the teacher can access the pupils desktop and give support 
+ from his computer. The pupil can watch all activities, the 
+ teacher is doing on his desktop. So the pupil can learn new processes. 
+ For teaching something to all pupils, you can switch into demo-mode 
+ where all screens of the pupils show the teacher-screen. 
+ Furthermore things like locking pupil's screens, killing games, 
+ power on/off clients and much more can be done with iTALC. 
+ .
+ This package contains the software necessary to observe and control iTALC
+ clients provided by the italc-client package.
+
+Package: italc2-client
+Architecture: any
+Recommends: avahi-utils
+Depends: ${shlibs:Depends}, ${misc:Depends}, libitalc2
+Conflicts:italc-client
+Description: Intelligent Teaching and Learning with Computers (client part)
+ iTALC makes it possible, to access and influence the pupils 
+ activities just from the computer of the teacher. With the 
+ help of iTALC, for example the teacher is able to see the 
+ content of the pupils screens on his screen. If a pupil needs 
+ help, the teacher can access the pupils desktop and give support 
+ from his computer. The pupil can watch all activities, the 
+ teacher is doing on his desktop. So the pupil can learn new processes. 
+ For teaching something to all pupils, you can switch into demo-mode 
+ where all screens of the pupils show the teacher-screen. 
+ Furthermore things like locking pupil's screens, killing games, 
+ power on/off clients and much more can be done with iTALC. 
+ .
+ This package contains the client software for iTALC that can be controlled
+ using italc-master.
+
+Package: libitalc2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libitalc
+Description: Intelligent Teaching and Learning with Computers (library)
+ iTALC makes it possible, to access and influence the pupils
+ activities just from the computer of the teacher. With the
+ help of iTALC, for example the teacher is able to see the
+ content of the pupils screens on his screen. If a pupil needs
+ help, the teacher can access the pupils desktop and give support
+ from his computer. The pupil can watch all activities, the
+ teacher is doing on his desktop. So the pupil can learn new processes.
+ For teaching something to all pupils, you can switch into demo-mode
+ where all screens of the pupils show the teacher-screen.
+ Furthermore things like locking pupil's screens, killing games,
+ power on/off clients and much more can be done with iTALC.
+ .
+ This package provides the necessary library for italc
+
+

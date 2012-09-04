@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=iTalc client
+Comment=iTalc client daemon
+Exec=/usr/bin/ica-launcher
+Icon=/usr/share/pixmaps/italc.xpm
+Terminal=false
+Type=Application
+StartupNotify=false
+Categories=GNOME;KDE;System;
+X-Ubuntu-Gettext-Domain=ica

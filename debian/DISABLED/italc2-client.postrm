@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = purge ]; then
+	rm -rf /etc/italc
+fi;
+
+if [ -f /etc/ltsp_chroot ] && [ -d /usr/share/ldm/rc.d/ ] && [ -f /usr/share/ldm/rc.d/S06-italc ]; then
+	echo "Removing ldm rc script"
+	rm /usr/share/ldm/rc.d/S06-italc
+fi
+
+#DEBHELPER#

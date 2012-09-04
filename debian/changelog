@@ -1,0 +1,6 @@
+italc2 (1.9.6-0ubuntu1~warp10~test1) lucid; urgency=low
+
+  * Initial release.
+  * Packaging still in development: use it at your own risk!
+
+ -- Andrea Colangelo <warp10@ubuntu.com>  Wed, 02 Mar 2011 21:35:22 +0100
