@@ -5,3 +5,10 @@ export DH_OPTIONS
 %:
 	dh $@ 
 
+override_dh_clean:
+	dh_clean
+	rm -f libitalc2.install
+
+override_dh_install:
+	cp debian/libitalc2.install.`dpkg --print-architecture` libitalc2.install
+	dh_install
